@@ -26,5 +26,6 @@
 @property (nonatomic, retain) NSString *rawText;
 
 -(void)build;
+-(void) replaceInString:(NSMutableString *)str placeHolder:(NSString *)place withString:(NSString *)replace;
 
 @end

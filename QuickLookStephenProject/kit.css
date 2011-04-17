@@ -1,0 +1,24 @@
+pre {
+	background-color: white;
+	color: black;
+	text-align: left;
+	display: block;
+}
+
+body {
+	font: 13px 'Lucida Grande', Lucida, Verdana, sans-serif;
+}
+
+body {
+	background-color: black;
+	color: whitesmoke;
+	text-align: center;
+}
+
+h1 {
+	text-shadow: #bdbdbd 2px 2px 3px;
+}
+
+li {
+	list-style: none;
+}

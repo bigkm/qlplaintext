@@ -28,7 +28,7 @@
 {
 	self = [super init];
 	if (self != nil) {
-		//NSLog(@"%@", [NSBundle bundleWithIdentifier:@"com.whomwah.quicklookstephen"]);
+		
 		NSData *data = [NSData dataWithContentsOfURL:url];
 		self.rawText = [NSString stringWithContentsOfURL:url
 												encoding:NSUTF8StringEncoding
@@ -40,13 +40,16 @@
 	}
 	return self;	
 }
+-(void) replaceInString:(NSMutableString *)str placeHolder:(NSString *)place withString:(NSString *)replace
+{
+	[str replaceCharactersInRange:[str rangeOfString:place] withString:replace];
+}
 
 -(NSString *)html
 {
-	NSString *result;
 	NSMutableString *tmp = [[[NSMutableString alloc] init] autorelease];
 
-	[tmp appendString:@"<h3>Dependencies</h3><ul>"];
+	[tmp appendString:@"<ul>"];
 	for (KitSpecItem *item in dependencies) {
 		[tmp appendFormat:@"<li>%@ (%@)</li>", item.name, item.version];
 	}
@@ -55,15 +58,16 @@
 	for (NSString *k in [optionalKeys allKeys]) {
 		[tmp appendFormat:@"<p> %@ : %@ </p>", k, [optionalKeys objectForKey:k]];
 	}
-	
-	NSString *style = @"<style type=\"text/css\">"
-	"pre {background-color: white; color:black; text-align:left; display:block};"
-	"body {font: 13px 'Lucida Grande', Lucida, Verdana, sans-serif;}"
-	"body {background-color: black;color: whitesmoke;text-align: center;}h1 {text-shadow: #bdbdbd 2px 2px 3px;}li {list-style: none;	"
-	"</style>";
+		
+	NSMutableString *html = [NSMutableString stringWithContentsOfFile:[[NSBundle bundleWithIdentifier:@"com.whomwah.quicklookstephen"] pathForResource:@"kit" ofType:@"html"]
+															 encoding:NSUTF8StringEncoding 
+																error:nil];
 
-	result = [NSString stringWithFormat:@"<html><body>%@<br /><h1>%@ (%@)</h1> %@ <pre>%@</pre></body></html>", style, self.baseKit.name, self.baseKit.version, tmp, self.rawText];	
-	return result;
+	[self replaceInString:html placeHolder:@"__KIT_NAME__" withString:self.baseKit.name];
+	[self replaceInString:html placeHolder:@"__KIT_VERSION__" withString:self.baseKit.version];
+	[self replaceInString:html placeHolder:@"__DEPS__" withString:tmp];
+	[self replaceInString:html placeHolder:@"__SOURCE__" withString:self.rawText];
+	return html;
 }
 
 -(void)build
