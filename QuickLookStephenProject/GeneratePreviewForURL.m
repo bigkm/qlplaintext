@@ -18,12 +18,11 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
         return noErr;
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSData *data;
 	NSString *text;
 	NSMutableDictionary *props = [[NSMutableDictionary alloc] init];
 	[props setObject:@"UTF-8" forKey:(NSString *)kQLPreviewPropertyTextEncodingNameKey];
 	[props setObject:@"text/plain" forKey:(NSString *)kQLPreviewPropertyMIMETypeKey];
-	[props setObject:[NSNumber numberWithInt:500] forKey:(NSString *)kQLPreviewPropertyWidthKey];
+	[props setObject:[NSNumber numberWithInt:700] forKey:(NSString *)kQLPreviewPropertyWidthKey];
 	[props setObject:[NSNumber numberWithInt:500] forKey:(NSString *)kQLPreviewPropertyHeightKey];	
 
 	if([[(NSURL *) url absoluteString] hasSuffix:@"KitSpec"]) 
