@@ -11,8 +11,8 @@
 #import "KitSpecItem.h"
 
 #define kKIT_NAME @"name"
-#define kKit_VERSION @"version"
-
+#define kKIT_VERSION @"version"
+#define kKIT_DEP @"dependencies"
 
 @interface KitSpec : NSObject<PlainTextToHTML> {
 	NSMutableArray *yaml;
@@ -21,6 +21,6 @@
 }
 
 @property (nonatomic, retain) KitSpecItem *baseKit;
-
+-(void)build;
 
 @end

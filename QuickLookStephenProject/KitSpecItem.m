@@ -14,4 +14,11 @@
 @synthesize name;
 @synthesize version;
 
+-(void)dealloc
+{
+	self.name = nil;
+	self.version = nil;
+	[super dealloc];
+}
+
 @end
