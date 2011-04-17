@@ -5,3 +5,6 @@ resources-directory: Resources
 dependencies:
   - MPOAuth: 1.0
   - json-framework: 3.0beta1
+  - name : testclass
+    version: 2.2
+  
