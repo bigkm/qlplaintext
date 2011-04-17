@@ -24,7 +24,6 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 	[props setObject:@"text/plain" forKey:(NSString *)kQLPreviewPropertyMIMETypeKey];
 	[props setObject:[NSNumber numberWithInt:700] forKey:(NSString *)kQLPreviewPropertyWidthKey];
 	[props setObject:[NSNumber numberWithInt:500] forKey:(NSString *)kQLPreviewPropertyHeightKey];	
-
 	if([[(NSURL *) url absoluteString] hasSuffix:@"KitSpec"]) 
 	{
 		text = [[[KitSpec alloc] initWithUrl:(NSURL *) url] html];
@@ -38,8 +37,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 										   error:nil];
 	}
 	
-	QLPreviewRequestSetDataRepresentation(
-										  preview,
+	QLPreviewRequestSetDataRepresentation(preview,
 										  (CFDataRef)[text dataUsingEncoding:NSUTF8StringEncoding],
 										  kUTTypeHTML,
 										  (CFDictionaryRef)props);

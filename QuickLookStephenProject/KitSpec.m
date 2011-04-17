@@ -28,6 +28,7 @@
 {
 	self = [super init];
 	if (self != nil) {
+		//NSLog(@"%@", [NSBundle bundleWithIdentifier:@"com.whomwah.quicklookstephen"]);
 		NSData *data = [NSData dataWithContentsOfURL:url];
 		self.rawText = [NSString stringWithContentsOfURL:url
 												encoding:NSUTF8StringEncoding
