@@ -18,9 +18,13 @@
 	NSMutableArray *yaml;
 	KitSpecItem *baseKit;
 	NSMutableArray *dependencies;
+	NSMutableDictionary *optionalKeys;
+	NSString *rawText;
 }
 
 @property (nonatomic, retain) KitSpecItem *baseKit;
+@property (nonatomic, retain) NSString *rawText;
+
 -(void)build;
 
 @end

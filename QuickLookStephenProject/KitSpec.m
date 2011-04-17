@@ -12,12 +12,15 @@
 
 @implementation KitSpec
 @synthesize baseKit;
+@synthesize rawText;
 
 -(void)dealloc
 {
 	[dependencies release];
 	[baseKit release];
 	[yaml release];
+	[optionalKeys release];
+	[rawText release];
 	[super dealloc];
 }
 
@@ -25,8 +28,11 @@
 {
 	self = [super init];
 	if (self != nil) {
-		NSData *data = [NSData dataWithContentsOfURL:(NSURL *) url];
-		yaml = [[YAMLSerialization YAMLWithData: data options:kYAMLReadOptionStringScalars error: nil] retain];		
+		NSData *data = [NSData dataWithContentsOfURL:url];
+		self.rawText = [NSString stringWithContentsOfURL:url
+												encoding:NSUTF8StringEncoding
+												   error:nil];
+		yaml = [[YAMLSerialization YAMLWithData:data options:kYAMLReadOptionStringScalars error: nil] retain];		
 		dependencies = [[NSMutableArray alloc] init];
 		baseKit = [[KitSpecItem alloc] init];
 		[self build];
@@ -38,13 +44,24 @@
 {
 	NSString *result;
 	NSMutableString *tmp = [[[NSMutableString alloc] init] autorelease];
-	[tmp appendString:@"<ul>"];
+
+	[tmp appendString:@"<h3>Dependencies</h3><ul>"];
 	for (KitSpecItem *item in dependencies) {
 		[tmp appendFormat:@"<li>%@ (%@)</li>", item.name, item.version];
 	}
 	[tmp appendString:@"</ul>"];
+	 
+	for (NSString *k in [optionalKeys allKeys]) {
+		[tmp appendFormat:@"<p> %@ : %@ </p>", k, [optionalKeys objectForKey:k]];
+	}
+	
+	NSString *style = @"<style type=\"text/css\">"
+	"pre {background-color: white; color:black; text-align:left; display:block};"
+	"body {font: 13px 'Lucida Grande', Lucida, Verdana, sans-serif;}"
+	"body {background-color: black;color: whitesmoke;text-align: center;}h1 {text-shadow: #bdbdbd 2px 2px 3px;}li {list-style: none;	"
+	"</style>";
 
-	result = [NSString stringWithFormat:@"<html><body><br /><h1>%@ (%@)</h1> %@ </body></html>", self.baseKit.name, self.baseKit.version, tmp];	
+	result = [NSString stringWithFormat:@"<html><body>%@<br /><h1>%@ (%@)</h1> %@ <pre>%@</pre></body></html>", style, self.baseKit.name, self.baseKit.version, tmp, self.rawText];	
 	return result;
 }
 
@@ -72,7 +89,9 @@
 		}
 		[item release];
 	}	
-	
+	NSMutableDictionary *otherKeys = [dic mutableCopy];
+	[otherKeys removeObjectsForKeys:[NSArray arrayWithObjects:kKIT_NAME, kKIT_DEP, kKIT_VERSION, nil]];
+	optionalKeys = otherKeys;
 }
 
 @end
