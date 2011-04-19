@@ -1,7 +1,8 @@
 QLPlainText
 ===========
 
-QLPlainText is a QuickLook plugin based on QuickLookStephen that lets you view plain text files withouta file extension.
+QLPlainText is a QuickLook plugin based on QuickLookStephen that lets you view
+ plain text files withouta file extension.
 
 Files like:
 
