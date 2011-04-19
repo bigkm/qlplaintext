@@ -59,7 +59,7 @@
 		[tmp appendFormat:@"<p> %@ : %@ </p>", k, [optionalKeys objectForKey:k]];
 	}
 		
-	NSMutableString *html = [NSMutableString stringWithContentsOfFile:[[NSBundle bundleWithIdentifier:@"com.whomwah.quicklookstephen"] pathForResource:@"kit" ofType:@"html"]
+	NSMutableString *html = [NSMutableString stringWithContentsOfFile:[[NSBundle bundleWithIdentifier:@"info.kimhunter.qlplaintext"] pathForResource:@"kit" ofType:@"html"]
 															 encoding:NSUTF8StringEncoding 
 																error:nil];
 
