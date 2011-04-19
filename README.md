@@ -2,7 +2,10 @@ QLPlainText
 ===========
 
 QLPlainText is a QuickLook plugin based on QuickLookStephen that lets you view
- plain text files withouta file extension.
+plain text files without a file extension. Plus it allows for simple adaption of
+new file types with ease. 
+
+
 
 Files like:
 
@@ -10,7 +13,9 @@ Files like:
 * INSTALL
 * CapFile
 * CHANGELOG
+* [KitSpec](https://github.com/nkpart/kit) (YAML specification)
 * etc...
+
 
 Install
 =======
