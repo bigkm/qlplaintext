@@ -1,9 +1,9 @@
 //
 //  KitSpec.h
-//  QuickLookStephen
+//  QLPlainText
 //
 //  Created by Kim Hunter on 17/04/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 Kim Hunter. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
