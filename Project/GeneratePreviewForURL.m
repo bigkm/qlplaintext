@@ -26,9 +26,11 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 	[props setObject:[NSNumber numberWithInt:500] forKey:(NSString *)kQLPreviewPropertyHeightKey];	
 	if([[(NSURL *) url absoluteString] hasSuffix:@"KitSpec"]) 
 	{
-		text = [[[KitSpec alloc] initWithUrl:(NSURL *) url] html];
-		[props setObject:@"text/html" forKey:(NSString *)kQLPreviewPropertyMIMETypeKey];
+		KitSpec *generator = [[KitSpec alloc] initWithUrl:(NSURL *) url];
+		text = [generator html];
+		[generator release];
 		
+		[props setObject:@"text/html" forKey:(NSString *)kQLPreviewPropertyMIMETypeKey];
 	} 
 	else 
 	{
