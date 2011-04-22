@@ -20,10 +20,12 @@
 	NSMutableArray *dependencies;
 	NSMutableDictionary *optionalKeys;
 	NSString *rawText;
+	NSString *path;
 }
 
 @property (nonatomic, retain) KitSpecItem *baseKit;
 @property (nonatomic, retain) NSString *rawText;
+@property (nonatomic, retain) NSString *path;
 
 -(void)build;
 -(void) replaceInString:(NSMutableString *)str placeHolder:(NSString *)place withString:(NSString *)replace;

@@ -13,6 +13,7 @@
 @implementation KitSpec
 @synthesize baseKit;
 @synthesize rawText;
+@synthesize path;
 
 -(void)dealloc
 {
@@ -21,8 +22,10 @@
 	[yaml release];
 	[optionalKeys release];
 	[rawText release];
+	[path release];
 	[super dealloc];
 }
+
 
 -(id)initWithUrl:(NSURL *)url
 {
@@ -34,6 +37,7 @@
 												encoding:NSUTF8StringEncoding
 												   error:nil];
 		yaml = [[YAMLSerialization YAMLWithData:data options:kYAMLReadOptionStringScalars error: nil] retain];		
+		self.path = [url path];
 		dependencies = [[NSMutableArray alloc] init];
 		baseKit = [[KitSpecItem alloc] init];
 		[self build];
@@ -66,6 +70,7 @@
 																error:nil];
 
 	[self replaceInString:html placeHolder:@"__KIT_NAME__" withString:self.baseKit.name];
+	[self replaceInString:html placeHolder:@"__FILE_NAME__" withString:self.path];
 	[self replaceInString:html placeHolder:@"__KIT_VERSION__" withString:self.baseKit.version];
 	[self replaceInString:html placeHolder:@"__DEPS__" withString:tmp];
 	[self replaceInString:html placeHolder:@"__SOURCE__" withString:self.rawText];
