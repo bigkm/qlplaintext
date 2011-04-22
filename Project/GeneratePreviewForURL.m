@@ -19,14 +19,20 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *text;
+	NSURL *urlPath = (NSURL *) url;
 	NSMutableDictionary *props = [[NSMutableDictionary alloc] init];
+
 	[props setObject:@"UTF-8" forKey:(NSString *)kQLPreviewPropertyTextEncodingNameKey];
 	[props setObject:@"text/plain" forKey:(NSString *)kQLPreviewPropertyMIMETypeKey];
 	[props setObject:[NSNumber numberWithInt:700] forKey:(NSString *)kQLPreviewPropertyWidthKey];
 	[props setObject:[NSNumber numberWithInt:500] forKey:(NSString *)kQLPreviewPropertyHeightKey];	
-	if([[(NSURL *) url absoluteString] hasSuffix:@"KitSpec"]) 
-	{
-		KitSpec *generator = [[KitSpec alloc] initWithUrl:(NSURL *) url];
+	
+	NSString *baseName = [[urlPath path] lastPathComponent];
+	Class module = NSClassFromString(baseName);
+	
+	if(module && [module conformsToProtocol:@protocol(PlainTextToHTML)]) 
+	{	
+		id generator = [[module alloc] initWithUrl:(NSURL *) url];
 		text = [generator html];
 		[generator release];
 		
