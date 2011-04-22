@@ -44,7 +44,9 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
 										encoding:NSUTF8StringEncoding
 										   error:nil];
 	}
-	
+#ifdef DEBUG
+	NSLog(@"********* File Content ********\n%@", text);
+#endif 
 	QLPreviewRequestSetDataRepresentation(preview,
 										  (CFDataRef)[text dataUsingEncoding:NSUTF8StringEncoding],
 										  kUTTypeHTML,
