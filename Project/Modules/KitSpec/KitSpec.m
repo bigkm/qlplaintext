@@ -49,14 +49,16 @@
 {
 	NSMutableString *tmp = [[[NSMutableString alloc] init] autorelease];
 
-	[tmp appendString:@"<ul>"];
+	[tmp appendString:@"<ul>\n"];
 	for (KitSpecItem *item in dependencies) {
-		[tmp appendFormat:@"<li>%@ (%@)</li>", item.name, item.version];
+		[tmp appendFormat:@"\t<li>%@ (%@)</li>\n", item.name, item.version];
 	}
-	[tmp appendString:@"</ul>"];
-	 
-	for (NSString *k in [optionalKeys allKeys]) {
-		[tmp appendFormat:@"<p> %@ : %@ </p>", k, [optionalKeys objectForKey:k]];
+	[tmp appendString:@"</ul>\n"];
+	if ([optionalKeys count]) {
+		[tmp appendFormat:@"<h3>Variables</h3>\n"];
+		for (NSString *k in [optionalKeys allKeys]) {
+			[tmp appendFormat:@"<p> %@ : %@ </p>\n", k, [optionalKeys objectForKey:k]];
+		}
 	}
 		
 	NSMutableString *html = [NSMutableString stringWithContentsOfFile:[[NSBundle bundleWithIdentifier:@"info.kimhunter.qlplaintext"] pathForResource:@"kit" ofType:@"html"]
