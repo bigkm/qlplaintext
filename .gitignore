@@ -5,3 +5,6 @@ build
 *.mode1v3
 *.pbxuser
 
+
+/Project/QLPlainText.xcodeproj/xcuserdata/
+/Project/QLPlainText.xcodeproj/project.xcworkspace/
