@@ -36,8 +36,9 @@
 		self.rawText = [NSString stringWithContentsOfURL:url
 												encoding:NSUTF8StringEncoding
 												   error:nil];
-		yaml = [[YAMLSerialization YAMLWithData:data options:kYAMLReadOptionStringScalars error: nil] retain];		
-		self.path = [url path];
+		yaml = [[YAMLSerialization YAMLWithData:data options:kYAMLReadOptionStringScalars error: nil] retain];
+		
+		self.path = [[url path] stringByReplacingOccurrencesOfString:NSHomeDirectory() withString:@"~"];
 		dependencies = [[NSMutableArray alloc] init];
 		baseKit = [[KitSpecItem alloc] init];
 		[self build];
@@ -64,7 +65,6 @@
 			[tmp appendFormat:@"<p> %@ : %@ </p>\n", k, [optionalKeys objectForKey:k]];
 		}
 	}
-		
 	NSMutableString *html = [NSMutableString stringWithContentsOfFile:[[NSBundle bundleWithIdentifier:@"info.kimhunter.qlplaintext"] pathForResource:@"kit" ofType:@"html"]
 															 encoding:NSUTF8StringEncoding 
 																error:nil];
